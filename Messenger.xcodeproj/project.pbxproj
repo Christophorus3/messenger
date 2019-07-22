@@ -12,6 +12,13 @@
 		9EB5708B22E21D7F00E5550D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EB5708A22E21D7F00E5550D /* Assets.xcassets */; };
 		9EB5708E22E21D7F00E5550D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EB5708C22E21D7F00E5550D /* LaunchScreen.storyboard */; };
 		9EB5709722E21E6300E5550D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EB5709622E21E6300E5550D /* CoreData.framework */; };
+		9EC58E4B22E5F4F9006F685A /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC58E4A22E5F4F9006F685A /* Message.swift */; };
+		9EC58E4D22E5F55C006F685A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC58E4C22E5F55C006F685A /* User.swift */; };
+		9EC58E5022E601B0006F685A /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC58E4F22E601B0006F685A /* MessageViewModel.swift */; };
+		9EC58E5222E601B7006F685A /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC58E5122E601B7006F685A /* UserViewModel.swift */; };
+		9EC58E5522E607A7006F685A /* ThreadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC58E5422E607A7006F685A /* ThreadCell.swift */; };
+		9EC58E5722E607B9006F685A /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC58E5622E607B9006F685A /* BaseCell.swift */; };
+		9EC58E5A22E60E65006F685A /* messagesModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9EC58E5822E60E65006F685A /* messagesModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +29,13 @@
 		9EB5708D22E21D7F00E5550D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9EB5708F22E21D7F00E5550D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9EB5709622E21E6300E5550D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		9EC58E4A22E5F4F9006F685A /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		9EC58E4C22E5F55C006F685A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		9EC58E4F22E601B0006F685A /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
+		9EC58E5122E601B7006F685A /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		9EC58E5422E607A7006F685A /* ThreadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadCell.swift; sourceTree = "<group>"; };
+		9EC58E5622E607B9006F685A /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
+		9EC58E5922E60E65006F685A /* messagesModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = messagesModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +70,9 @@
 		9EB5708222E21D7E00E5550D /* Messenger */ = {
 			isa = PBXGroup;
 			children = (
+				9EC58E5322E60794006F685A /* View */,
+				9EC58E4E22E60182006F685A /* ViewModel */,
+				9EC58E4922E5F4E9006F685A /* Model */,
 				9EB5708322E21D7E00E5550D /* AppDelegate.swift */,
 				9EB5708522E21D7E00E5550D /* FriendsController.swift */,
 				9EB5708A22E21D7F00E5550D /* Assets.xcassets */,
@@ -71,6 +88,34 @@
 				9EB5709622E21E6300E5550D /* CoreData.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9EC58E4922E5F4E9006F685A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9EC58E4A22E5F4F9006F685A /* Message.swift */,
+				9EC58E4C22E5F55C006F685A /* User.swift */,
+				9EC58E5822E60E65006F685A /* messagesModel.xcdatamodeld */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9EC58E4E22E60182006F685A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9EC58E4F22E601B0006F685A /* MessageViewModel.swift */,
+				9EC58E5122E601B7006F685A /* UserViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9EC58E5322E60794006F685A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9EC58E5422E607A7006F685A /* ThreadCell.swift */,
+				9EC58E5622E607B9006F685A /* BaseCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,6 +188,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EC58E4D22E5F55C006F685A /* User.swift in Sources */,
+				9EC58E5222E601B7006F685A /* UserViewModel.swift in Sources */,
+				9EC58E4B22E5F4F9006F685A /* Message.swift in Sources */,
+				9EC58E5022E601B0006F685A /* MessageViewModel.swift in Sources */,
+				9EC58E5A22E60E65006F685A /* messagesModel.xcdatamodeld in Sources */,
+				9EC58E5722E607B9006F685A /* BaseCell.swift in Sources */,
+				9EC58E5522E607A7006F685A /* ThreadCell.swift in Sources */,
 				9EB5708622E21D7E00E5550D /* FriendsController.swift in Sources */,
 				9EB5708422E21D7E00E5550D /* AppDelegate.swift in Sources */,
 			);
@@ -336,6 +388,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9EC58E5822E60E65006F685A /* messagesModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9EC58E5922E60E65006F685A /* messagesModel.xcdatamodel */,
+			);
+			currentVersion = 9EC58E5922E60E65006F685A /* messagesModel.xcdatamodel */;
+			path = messagesModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 9EB5707822E21D7D00E5550D /* Project object */;
 }
