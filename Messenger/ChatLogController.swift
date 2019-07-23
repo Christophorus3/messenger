@@ -16,6 +16,7 @@ class ChatLogController: UICollectionViewController {
         didSet {
             navigationItem.title = user?.name
             self.messages = user?.messages?.allObjects as? [Message]
+            self.messages?.sort(by: { $0.date! < $1.date! })
         }
     }
     
@@ -36,7 +37,10 @@ class ChatLogController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MessageCell
         
-        cell.
+        if let message = messages?[indexPath.row] {
+            cell.viewModel = MessageViewModel(model: message)
+        }
+        
         
         return cell
     }

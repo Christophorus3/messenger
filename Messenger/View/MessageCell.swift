@@ -10,6 +10,12 @@ import UIKit
 
 class MessageCell: BaseCell {
     
+    var viewModel: MessageViewModel? {
+        didSet {
+            messageTextView.text = viewModel?.text
+        }
+    }
+    
     let messageTextView: UITextView = {
         let textView = UITextView()
         textView.font = .systemFont(ofSize: 16)
@@ -23,8 +29,6 @@ class MessageCell: BaseCell {
         let views = [
             "messageTextView": messageTextView
         ]
-        
-        self.backgroundColor = .blue
         
         addSubview(messageTextView)
         messageTextView.translatesAutoresizingMaskIntoConstraints = false
