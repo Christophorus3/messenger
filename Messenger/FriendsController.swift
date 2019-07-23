@@ -44,6 +44,12 @@ class FriendsController: UICollectionViewController {
         
         return cell
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let chatLogVC = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
+        chatLogVC.user = messages?[indexPath.row].user
+        navigationController?.pushViewController(chatLogVC, animated: true)
+    }
 
 }
 
