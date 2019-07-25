@@ -81,7 +81,7 @@ extension FriendsController {
             
             createMessage(with: "Hi, Steve Jobs here! Hope you like our latest iStuff", user: steve, time: "12:03, 23.07.2019", context: context)
             createMessage(with: "Hey, how are you, Bro?", user: steve, time: "14:10, 25.07.2019", context: context)
-            createMessage(with: "Come and check out the latest iPhone XII at your local Apple Store!", user: steve, time: "14:30, 25.07.2019", context: context)
+            createMessage(with: "Come and check out the latest iPhone XII at your local Apple Store! You can even try it hands on, so you can see for yourself how magic it is!", user: steve, time: "14:30, 25.07.2019", context: context)
             
             let donald = NSEntityDescription.insertNewObject(forEntityName: "User", into: context) as! User
             donald.name = "Donald Trump"

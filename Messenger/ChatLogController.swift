@@ -39,14 +39,35 @@ class ChatLogController: UICollectionViewController {
         
         if let message = messages?[indexPath.row] {
             cell.viewModel = MessageViewModel(model: message)
+            let size = CGSize(width: 250, height: 1000)
+            let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+            let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18)]
+            let estimatedFrame = NSString(string: message.text!).boundingRect(with: size, options: options, attributes: attributes, context: nil)
+            
+            cell.messageTextView.frame = CGRect(x: 48 + 8, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)
+            
+            cell.bubbleView.frame = CGRect(x: 48, y: 0, width: estimatedFrame.width + 16 + 16, height: estimatedFrame.height + 20)
         }
-        
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        if let messageText = messages?[indexPath.row].text {
+            let size = CGSize(width: 250, height: 1000)
+            let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+            let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18)]
+            let estimatedFrame = NSString(string: messageText).boundingRect(with: size, options: options, attributes: attributes, context: nil)
+            
+            return CGSize(width: view.frame.width, height: estimatedFrame.height + 20)
+        }
+        
         return CGSize(width: view.frame.width, height: 100)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
     }
 }
 
