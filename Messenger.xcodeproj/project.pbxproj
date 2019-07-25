@@ -21,6 +21,7 @@
 		9EC58E5A22E60E65006F685A /* messagesModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9EC58E5822E60E65006F685A /* messagesModel.xcdatamodeld */; };
 		9EE066A122E790DA00630765 /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE066A022E790DA00630765 /* ChatLogController.swift */; };
 		9EE066A322E7A1AA00630765 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE066A222E7A1AA00630765 /* MessageCell.swift */; };
+		9EE066A522E9C31600630765 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE066A422E9C31600630765 /* TabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		9EC58E5922E60E65006F685A /* messagesModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = messagesModel.xcdatamodel; sourceTree = "<group>"; };
 		9EE066A022E790DA00630765 /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
 		9EE066A222E7A1AA00630765 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		9EE066A422E9C31600630765 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				9EB5708A22E21D7F00E5550D /* Assets.xcassets */,
 				9EB5708C22E21D7F00E5550D /* LaunchScreen.storyboard */,
 				9EB5708F22E21D7F00E5550D /* Info.plist */,
+				9EE066A422E9C31600630765 /* TabBarController.swift */,
 			);
 			path = Messenger;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 				9EC58E5722E607B9006F685A /* BaseCell.swift in Sources */,
 				9EC58E5522E607A7006F685A /* ThreadCell.swift in Sources */,
 				9EB5708622E21D7E00E5550D /* FriendsController.swift in Sources */,
+				9EE066A522E9C31600630765 /* TabBarController.swift in Sources */,
 				9EE066A322E7A1AA00630765 /* MessageCell.swift in Sources */,
 				9EB5708422E21D7E00E5550D /* AppDelegate.swift in Sources */,
 			);

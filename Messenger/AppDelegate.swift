@@ -20,9 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-        let layout = UICollectionViewFlowLayout()
-        let friendsController = FriendsController(collectionViewLayout: layout)
-        window?.rootViewController = UINavigationController(rootViewController: friendsController)
+        setupViewControllers()
         
         return true
     }
@@ -93,6 +91,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
+}
+
+extension AppDelegate {
+    func setupViewControllers() {
+        // Recent
+        let layout = UICollectionViewFlowLayout()
+        let friendsController = FriendsController(collectionViewLayout: layout)
+        let friendsNav = UINavigationController(rootViewController: friendsController)
+        friendsNav.tabBarItem = UITabBarItem(title: "Recent", image: UIImage(named: "recent"), tag: 0)
+        
+        // Calls
+        let callsVC = UIViewController()
+        callsVC.view.backgroundColor = .white
+        callsVC.navigationItem.title = "Calls"
+        let callsNav = UINavigationController(rootViewController: callsVC)
+        callsNav.tabBarItem = UITabBarItem(title: "Calls", image: UIImage(named: "calls"), tag: 1)
+        
+        
+        
+        let tabBarVC = UITabBarController()
+        tabBarVC.viewControllers = [friendsNav, callsNav]
+        window?.rootViewController = tabBarVC
+    }
 }
 
