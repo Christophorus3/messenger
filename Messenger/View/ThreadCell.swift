@@ -65,6 +65,13 @@ class ThreadCell: BaseCell {
         return imageView
     }()
     
+    override var isHighlighted: Bool {
+        didSet {
+            self.backgroundColor = isHighlighted ? self.tintColor : .white
+            
+        }
+    }
+    
     override func setupViews() {
         //super.setupViews()
         
