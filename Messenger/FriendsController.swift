@@ -73,21 +73,27 @@ extension FriendsController {
             mark.name = "Mark Zuckerberg"
             mark.profileImageName = "zuckprofile"
             
-            createMessage(with: "Hi, I'm Mark! Nice to meet you...", user: mark, time: "08:21", context: context)
+            createMessage(with: "Hi, I'm Mark! Nice to meet you...", user: mark, time: "08:21, 24.07.2019", context: context)
             
             let steve = NSEntityDescription.insertNewObject(forEntityName: "User", into: context) as! User
             steve.name = "Steve Jobs"
             steve.profileImageName = "steveprofile"
             
-            createMessage(with: "Hi, Steve Jobs here! Hope you like our latest iStuff", user: steve, time: "12:03", context: context)
-            createMessage(with: "Hey, how are you, Bro?", user: steve, time: "14:10", context: context)
-            createMessage(with: "Come and check out the latest iPhone XII at your local Apple Store!", user: steve, time: "14:30", context: context)
+            createMessage(with: "Hi, Steve Jobs here! Hope you like our latest iStuff", user: steve, time: "12:03, 23.07.2019", context: context)
+            createMessage(with: "Hey, how are you, Bro?", user: steve, time: "14:10, 25.07.2019", context: context)
+            createMessage(with: "Come and check out the latest iPhone XII at your local Apple Store!", user: steve, time: "14:30, 25.07.2019", context: context)
             
             let donald = NSEntityDescription.insertNewObject(forEntityName: "User", into: context) as! User
             donald.name = "Donald Trump"
             donald.profileImageName = "donaldprofile"
             
-            createMessage(with: "I'm the President!", user: donald, time: "18:20", context: context)
+            createMessage(with: "I'm the President!", user: donald, time: "18:20, 22.07.2019", context: context)
+            
+            let gandhi = NSEntityDescription.insertNewObject(forEntityName: "User", into: context) as! User
+            gandhi.name = "Mahatma Gandhi"
+            gandhi.profileImageName = "gandhiprofile"
+            
+            createMessage(with: "Love, Peace and Joy!", user: gandhi, time: "0:20, 25.07.2019", context: context)
             
             do {
                 try context.save()
@@ -193,7 +199,7 @@ extension UIView {
 extension Date {
     init?(timeString: String) {
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
+        formatter.dateFormat = "HH:mm, dd.MM.yyyy"
         if let date = formatter.date(from: timeString) {
             self = date
         } else {

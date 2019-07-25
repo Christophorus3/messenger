@@ -24,6 +24,17 @@ class MessageViewModel {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "HH:mm"
             
+            let timeElapsedInSeconds = Date().timeIntervalSince(date)
+            
+            let secondsInDay: TimeInterval = 60 * 60 * 24
+            
+            if timeElapsedInSeconds > secondsInDay * 2 {
+                dateFormatter.dateFormat = "dd.MM.yy"
+                
+            } else if timeElapsedInSeconds > secondsInDay {
+                dateFormatter.dateFormat = "EEE"
+            }
+            
             return dateFormatter.string(from: date)
         }
         return nil
