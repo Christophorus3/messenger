@@ -38,9 +38,13 @@ class ChatLogController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MessageCell
         
         if let message = messages?[indexPath.row] {
-            cell.viewModel = MessageViewModel(model: message)
+            let viewModel = MessageViewModel(model: message)
+            viewModel.frameWidth = 250
+            viewModel.fontSize = 18
+            cell.viewModel = viewModel
             
-            let estimatedFrame = cell.viewModel!.estimatedFrame(forWidth: 250, fontSize: 18)
+            
+            let estimatedFrame = cell.viewModel!.estimatedFrame()
             
             if !cell.viewModel!.isSentByMe {
                 cell.messageTextView.frame = CGRect(x: 48 + 8, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)
@@ -60,7 +64,9 @@ class ChatLogController: UICollectionViewController {
         
         if let message = messages?[indexPath.row] {
             let viewModel = MessageViewModel(model: message)
-            let estimatedFrame = viewModel.estimatedFrame(forWidth: 250, fontSize: 18)
+            viewModel.frameWidth = 250
+            viewModel.fontSize = 18
+            let estimatedFrame = viewModel.estimatedFrame()
             
             return CGSize(width: view.frame.width, height: estimatedFrame.height + 20)
         }

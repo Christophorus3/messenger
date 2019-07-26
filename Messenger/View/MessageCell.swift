@@ -16,9 +16,11 @@ class MessageCell: BaseCell {
             profileImageView.image = viewModel?.profileImage
             profileImageView.isHidden = viewModel!.isSentByMe
             if viewModel!.isSentByMe {
-                bubbleView.backgroundColor = self.tintColor
+                bubbleView.tintColor = self.tintColor
+                bubbleView.image = UIImage(named: "bubble_blue")!.resizableImage(withCapInsets: UIEdgeInsets(top: 22, left: 26, bottom: 22, right: 26)).withRenderingMode(.alwaysTemplate)
                 messageTextView.textColor = .white
             }
+            setConstraints()
         }
     }
     
@@ -31,11 +33,13 @@ class MessageCell: BaseCell {
         return textView
     }()
     
-    let bubbleView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(white: 0.95, alpha: 1)
-        view.layer.cornerRadius = 15
-        return view
+    let bubbleView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "bubble_gray")!.resizableImage(withCapInsets: UIEdgeInsets(top: 22, left: 26, bottom: 22, right: 26)).withRenderingMode(.alwaysTemplate)
+        //imageView.contentMode = .scaleToFill
+        //imageView.clipsToBounds = true
+        imageView.tintColor = UIColor(white: 0.95, alpha: 1)
+        return imageView
     }()
     
     let profileImageView: UIImageView = {
@@ -48,26 +52,50 @@ class MessageCell: BaseCell {
         return imageView
     }()
     
+    
+    
     override func setupViews() {
         super.setupViews()
         
         //self.backgroundColor = .lightGray
         
+    }
+    
+    private func setConstraints() {
         let views = [
             "messageTextView": messageTextView,
             "bubbleView": bubbleView,
-            "imageView": profileImageView
+            "imageView": profileImageView,
+            //"bubbleImageView": bubbleImageView
         ]
+        
+        let metrics = [
+            "textWidth": viewModel!.estimatedFrame().width + 16,
+            "textHeight": viewModel!.estimatedFrame().height
+        ]
+        
+        //dunno if that is needed
+        self.contentView.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(bubbleView)
         bubbleView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(messageTextView)
+        
+        bubbleView.addSubview(messageTextView)
         messageTextView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(profileImageView)
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
-        //addConstraintsWithFormat(format: "H:|-[messageTextView(250)]", views: views)
-        //addConstraintsWithFormat(format: "V:|-(8)-[messageTextView]-(8)-|", views: views)
-        addConstraintsWithFormat(format: "H:|-[imageView(30)]", views: views)
+        bubbleView.addConstraintsWithFormat(format: "H:|-(16)-[messageTextView(textWidth)]-(16)-|", views: views, metrics: metrics)
+        bubbleView.addConstraintsWithFormat(format: "V:|[messageTextView]|", views: views)
+        if self.viewModel!.isSentByMe {
+            addConstraintsWithFormat(format: "H:[imageView(30)]-[bubbleView]-|", views: views)
+        } else {
+            addConstraintsWithFormat(format: "H:|-[imageView(30)]-[bubbleView]", views: views)
+        }
         addConstraintsWithFormat(format: "V:[imageView(30)]|", views: views)
+        
+        //bubbleView.addSubview(bubbleImageView)
+        //bubbleImageView.translatesAutoresizingMaskIntoConstraints = false
+        //bubbleView.addConstraintsWithFormat(format: "H:|[bubbleImageView]|", views: views)
+        addConstraintsWithFormat(format: "V:|[bubbleView]|", views: views)
     }
 }

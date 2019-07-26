@@ -192,10 +192,10 @@ extension FriendsController {
 }
 
 extension UIView {
-    func addConstraintsWithFormat(format: String, views: [String: UIView]) {
+    func addConstraintsWithFormat(format: String, views: [String: UIView], metrics: [String: CGFloat]? = nil) {
         addConstraints(NSLayoutConstraint.constraints(
             withVisualFormat: format,
-            metrics: nil,
+            metrics: metrics,
             views: views))
     }
 }

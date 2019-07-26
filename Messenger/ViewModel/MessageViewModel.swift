@@ -11,8 +11,10 @@ import UIKit
 class MessageViewModel {
     private let model: Message
     
-    init(model: Message) {
+    init(model: Message, frameWidth: CGFloat = 250, fontSize: CGFloat = 18) {
         self.model = model
+        self.frameWidth = frameWidth
+        self.fontSize = fontSize
     }
     
     var text: String? {
@@ -56,8 +58,12 @@ class MessageViewModel {
         return model.isSentByMe
     }
     
-    func estimatedFrame(forWidth width: CGFloat, fontSize: CGFloat) -> CGRect {
-        let size = CGSize(width: width, height: 1000)
+    var frameWidth: CGFloat
+    
+    var fontSize: CGFloat
+    
+    func estimatedFrame() -> CGRect {
+        let size = CGSize(width: frameWidth, height: 1000)
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
         let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize)]
         let estimatedFrame = NSString(string: self.text!).boundingRect(with: size, options: options, attributes: attributes, context: nil)
