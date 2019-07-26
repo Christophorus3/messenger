@@ -51,4 +51,16 @@ class MessageViewModel {
             return nil
         }
     }
+    
+    var isSentByMe: Bool {
+        return model.isSentByMe
+    }
+    
+    func estimatedFrame(forWidth width: CGFloat, fontSize: CGFloat) -> CGRect {
+        let size = CGSize(width: width, height: 1000)
+        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize)]
+        let estimatedFrame = NSString(string: self.text!).boundingRect(with: size, options: options, attributes: attributes, context: nil)
+        return estimatedFrame
+    }
 }

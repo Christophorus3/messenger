@@ -14,6 +14,11 @@ class MessageCell: BaseCell {
         didSet {
             messageTextView.text = viewModel?.text
             profileImageView.image = viewModel?.profileImage
+            profileImageView.isHidden = viewModel!.isSentByMe
+            if viewModel!.isSentByMe {
+                bubbleView.backgroundColor = self.tintColor
+                messageTextView.textColor = .white
+            }
         }
     }
     

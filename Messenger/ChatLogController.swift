@@ -39,14 +39,18 @@ class ChatLogController: UICollectionViewController {
         
         if let message = messages?[indexPath.row] {
             cell.viewModel = MessageViewModel(model: message)
-            let size = CGSize(width: 250, height: 1000)
-            let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-            let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18)]
-            let estimatedFrame = NSString(string: message.text!).boundingRect(with: size, options: options, attributes: attributes, context: nil)
             
-            cell.messageTextView.frame = CGRect(x: 48 + 8, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)
+            let estimatedFrame = cell.viewModel!.estimatedFrame(forWidth: 250, fontSize: 18)
             
-            cell.bubbleView.frame = CGRect(x: 48, y: 0, width: estimatedFrame.width + 16 + 16, height: estimatedFrame.height + 20)
+            if !cell.viewModel!.isSentByMe {
+                cell.messageTextView.frame = CGRect(x: 48 + 8, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)
+            
+                cell.bubbleView.frame = CGRect(x: 48, y: 0, width: estimatedFrame.width + 16 + 16, height: estimatedFrame.height + 20)
+            } else {
+                cell.messageTextView.frame = CGRect(x: view.frame.width - estimatedFrame.width - 16 - 16, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)
+                
+                cell.bubbleView.frame = CGRect(x: view.frame.width - estimatedFrame.width - 16 - 8 - 16, y: 0, width: estimatedFrame.width + 16 + 8, height: estimatedFrame.height + 20)
+            }
         }
         
         return cell
@@ -54,11 +58,9 @@ class ChatLogController: UICollectionViewController {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if let messageText = messages?[indexPath.row].text {
-            let size = CGSize(width: 250, height: 1000)
-            let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-            let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18)]
-            let estimatedFrame = NSString(string: messageText).boundingRect(with: size, options: options, attributes: attributes, context: nil)
+        if let message = messages?[indexPath.row] {
+            let viewModel = MessageViewModel(model: message)
+            let estimatedFrame = viewModel.estimatedFrame(forWidth: 250, fontSize: 18)
             
             return CGSize(width: view.frame.width, height: estimatedFrame.height + 20)
         }

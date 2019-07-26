@@ -83,6 +83,9 @@ extension FriendsController {
             createMessage(with: "Hey, how are you, Bro?", user: steve, time: "14:10, 25.07.2019", context: context)
             createMessage(with: "Come and check out the latest iPhone XII at your local Apple Store! You can even try it hands on, so you can see for yourself how magic it is!", user: steve, time: "14:30, 25.07.2019", context: context)
             
+            //response
+            createMessage(with: "Well, I will have a look!", user: steve, time: "14:40, 26.07.2019", context: context, sentByMe: true)
+            
             let donald = NSEntityDescription.insertNewObject(forEntityName: "User", into: context) as! User
             donald.name = "Donald Trump"
             donald.profileImageName = "donaldprofile"
@@ -105,11 +108,12 @@ extension FriendsController {
         loadData()
     }
     
-    func createMessage(with text: String, user: User, time: String, context: NSManagedObjectContext) {
+    func createMessage(with text: String, user: User, time: String, context: NSManagedObjectContext, sentByMe: Bool = false) {
         let message = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as! Message
         message.user = user
         message.text = text
         message.date = Date(timeString: time)
+        message.isSentByMe = sentByMe
     }
     
     func loadData() {
