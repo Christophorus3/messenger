@@ -62,6 +62,11 @@ class ChatLogController: UICollectionViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     private func setupViews() {
         let borderView = UIView()
         borderView.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
