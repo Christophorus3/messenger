@@ -22,13 +22,102 @@ class ChatLogController: UICollectionViewController {
     
     var messages: [Message]?
     
+    let messageInputView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    let inputTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Enter Message..."
+        return textField
+    }()
+    
+    let sendButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Send", for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 18)
+        return button
+    }()
+    
+    var bottomConstraint: NSLayoutConstraint?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tabBarController?.tabBar.isHidden = true
+        
+        collectionView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 50, right: 0)
+        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 48, right: 0)
         
         collectionView.backgroundColor = .white
         collectionView.alwaysBounceVertical = true
         collectionView.register(MessageCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.keyboardDismissMode = .interactive
+        
+        setupViews()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
+    private func setupViews() {
+        let borderView = UIView()
+        borderView.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
+        
+        let views = [
+            "inputView": messageInputView,
+            "textField": inputTextField,
+            "sendButton": sendButton,
+            "borderView": borderView
+        ]
+        
+        view.addSubview(messageInputView)
+        messageInputView.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraintsWithFormat(format: "H:|[inputView]|", views: views)
+        view.addConstraintsWithFormat(format: "V:[inputView(48)]", views: views)
+        
+        bottomConstraint = NSLayoutConstraint(item: messageInputView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 0.0)
+        view.addConstraint(bottomConstraint!)
+        
+        messageInputView.addSubview(inputTextField)
+        inputTextField.translatesAutoresizingMaskIntoConstraints = false
+        messageInputView.addSubview(sendButton)
+        sendButton.translatesAutoresizingMaskIntoConstraints = false
+        messageInputView.addSubview(borderView)
+        borderView.translatesAutoresizingMaskIntoConstraints = false
+        messageInputView.addConstraintsWithFormat(format: "H:|-[textField]-[sendButton(50)]-|", views: views)
+        messageInputView.addConstraintsWithFormat(format: "V:|[textField]|", views: views)
+        messageInputView.addConstraintsWithFormat(format: "V:|[sendButton]|", views: views)
+        messageInputView.addConstraintsWithFormat(format: "H:|[borderView]|", views: views)
+        messageInputView.addConstraintsWithFormat(format: "V:|[borderView(0.5)]", views: views)
+    }
+    
+    @objc private func handleKeyboardNotification(notification: Notification) {
+        if let userInfo = notification.userInfo {
+            let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+            let animationCurve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as! UInt
+            let isShowing = notification.name == UIResponder.keyboardWillShowNotification
+            
+            bottomConstraint?.constant = isShowing ? -keyboardFrame.height : 0
+            
+            UIView.animate(withDuration: 0, delay: 0, options: UIView.AnimationOptions(rawValue: animationCurve), animations: {
+                self.view.layoutIfNeeded()
+            }) { (completed) in
+                let indexPath = IndexPath(item: self.messages!.count - 1, section: 0)
+                self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+            }
+        }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //inputTextField.resignFirstResponder()
+        //basically the same:
+        inputTextField.endEditing(true)
+    }
+    
+    // MARK: - UICollectionView
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return messages?.count ?? 0
@@ -74,9 +163,10 @@ class ChatLogController: UICollectionViewController {
         return CGSize(width: view.frame.width, height: 100)
     }
     
+    /*
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
-    }
+    }*/
 }
 
 extension ChatLogController: UICollectionViewDelegateFlowLayout {

@@ -26,6 +26,11 @@ class FriendsController: UICollectionViewController {
         collectionView.alwaysBounceVertical = true
         collectionView.register(ThreadCell.self, forCellWithReuseIdentifier: cellId)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
+    }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let count = messages?.count {
@@ -85,6 +90,8 @@ extension FriendsController {
             
             //response
             createMessage(with: "Well, I will have a look!", user: steve, time: "14:40, 26.07.2019", context: context, sentByMe: true)
+            createMessage(with: "Yeah you really should do that! You're welcome anytime!", user: steve, time: "14:43, 26.07.2019", context: context)
+            createMessage(with: "Oh cool man! Will you be there in person? I would totally dig getting my iPhone autographed by you, Steve!", user: steve, time: "14:47, 26.07.2019", context: context, sentByMe: true)
             
             let donald = NSEntityDescription.insertNewObject(forEntityName: "User", into: context) as! User
             donald.name = "Donald Trump"
