@@ -43,6 +43,19 @@ class ChatLogController: UICollectionViewController {
     
     var bottomConstraint: NSLayoutConstraint?
     
+    override var inputAccessoryView: UIView? {
+        get {
+            messageInputView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 48)
+            return messageInputView
+        }
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        get {
+            return true
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -78,13 +91,7 @@ class ChatLogController: UICollectionViewController {
             "borderView": borderView
         ]
         
-        view.addSubview(messageInputView)
         messageInputView.translatesAutoresizingMaskIntoConstraints = false
-        view.addConstraintsWithFormat(format: "H:|[inputView]|", views: views)
-        view.addConstraintsWithFormat(format: "V:[inputView(48)]", views: views)
-        
-        bottomConstraint = NSLayoutConstraint(item: messageInputView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 0.0)
-        view.addConstraint(bottomConstraint!)
         
         messageInputView.addSubview(inputTextField)
         inputTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -102,17 +109,17 @@ class ChatLogController: UICollectionViewController {
     @objc private func handleKeyboardNotification(notification: Notification) {
         if let userInfo = notification.userInfo {
             let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-            let animationCurve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as! UInt
             let isShowing = notification.name == UIResponder.keyboardWillShowNotification
             
             bottomConstraint?.constant = isShowing ? -keyboardFrame.height : 0
             
+            /*
             UIView.animate(withDuration: 0, delay: 0, options: UIView.AnimationOptions(rawValue: animationCurve), animations: {
                 self.view.layoutIfNeeded()
             }) { (completed) in
                 let indexPath = IndexPath(item: self.messages!.count - 1, section: 0)
                 self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
-            }
+            }*/
         }
     }
     
