@@ -61,8 +61,8 @@ class ChatLogController: UICollectionViewController {
         
         tabBarController?.tabBar.isHidden = true
         
-        collectionView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 50, right: 0)
-        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 48, right: 0)
+        collectionView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+        //collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 48, right: 0)
         
         collectionView.backgroundColor = .white
         collectionView.alwaysBounceVertical = true
@@ -72,6 +72,7 @@ class ChatLogController: UICollectionViewController {
         setupViews()
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardDidShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
@@ -110,9 +111,14 @@ class ChatLogController: UICollectionViewController {
         if let userInfo = notification.userInfo {
             let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
             let isShowing = notification.name == UIResponder.keyboardWillShowNotification
+            let didShow = notification.name == UIResponder.keyboardDidShowNotification
             
             bottomConstraint?.constant = isShowing ? -keyboardFrame.height : 0
             
+            if didShow {
+                let indexPath = IndexPath(item: self.messages!.count - 1, section: 0)
+                self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+            }
             /*
             UIView.animate(withDuration: 0, delay: 0, options: UIView.AnimationOptions(rawValue: animationCurve), animations: {
                 self.view.layoutIfNeeded()
@@ -120,6 +126,7 @@ class ChatLogController: UICollectionViewController {
                 let indexPath = IndexPath(item: self.messages!.count - 1, section: 0)
                 self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
             }*/
+            
         }
     }
     
