@@ -38,6 +38,7 @@ class ChatLogController: UICollectionViewController {
         let button = UIButton(type: .system)
         button.setTitle("Send", for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 18)
+        button.addTarget(self, action: #selector(handleSend(sender:)), for: .touchUpInside)
         return button
     }()
     
@@ -128,6 +129,13 @@ class ChatLogController: UICollectionViewController {
             }*/
             
         }
+    }
+    
+    @objc func handleSend(sender: UIButton) {
+        print(inputTextField.text ?? "")
+        
+        let service = PersistenceService.shared
+        service.createMessage(with: inputTextField.text!, user: self.user!, sentByMe: true)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
