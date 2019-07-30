@@ -19,22 +19,24 @@ class PersistenceService {
         context = delegate.persistentContainer.viewContext
     }
     
-    func createMessage(with text: String, user: User, time: String, sentByMe: Bool = false) {
+    func createMessage(with text: String, user: User, time: String, sentByMe: Bool = false) -> Message {
         let message = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as! Message
         message.user = user
         message.text = text
         message.date = Date(timeString: time)
         message.isSentByMe = sentByMe
         saveContext()
+        return message
     }
     
-    func createMessage(with text: String, user: User, sentByMe: Bool = false) {
+    func createMessage(with text: String, user: User, sentByMe: Bool = false) -> Message {
         let message = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as! Message
         message.user = user
         message.text = text
         message.date = Date()
         message.isSentByMe = sentByMe
         saveContext()
+        return message
     }
     
     private func saveContext() {

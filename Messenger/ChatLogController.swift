@@ -135,7 +135,13 @@ class ChatLogController: UICollectionViewController {
         print(inputTextField.text ?? "")
         
         let service = PersistenceService.shared
-        service.createMessage(with: inputTextField.text!, user: self.user!, sentByMe: true)
+        let message = service.createMessage(with: inputTextField.text!, user: self.user!, sentByMe: true)
+        self.messages?.append(message)
+        let index = messages!.firstIndex(of: message)!
+        let indexPath = IndexPath(item: index, section: 0)
+        collectionView.insertItems(at: [indexPath])
+        collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+        inputTextField.text = ""
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
